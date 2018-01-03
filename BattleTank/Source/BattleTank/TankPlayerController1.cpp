@@ -26,3 +26,20 @@ void ATankPlayerController1::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Player controlling tank: %s"), *(ControlledTank->GetName()));
 	}
 }
+
+void ATankPlayerController1::AimTwoardsCrosshair()
+{
+	FVector HitLocation; //out parameter
+
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *HitLocation.ToString());
+}
+
+void ATankPlayerController1::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	AimTwoardsCrosshair();
+
+	//UE_LOG(LogTemp, Warning, TEXT("player controller tick called every frame"));
+}
+
