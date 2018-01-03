@@ -28,6 +28,6 @@ private:
 	//tank barrel should follow  the crosshair
 	void AimTwoardsCrosshair();
 
-	bool GetSightRayHitLocation(FVector OutHitLocation) const;
+	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
 	
 };
