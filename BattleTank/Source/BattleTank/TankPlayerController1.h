@@ -29,5 +29,12 @@ private:
 	void AimTwoardsCrosshair();
 
 	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
-	
+
+	bool GetLookDirection(FVector2D ScreenLocation, FVector& Lookdirection) const;
+
+	UPROPERTY(EditAnywhere)
+	float CrosshairXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+	float CrosshairYLocation = 0.3333;
 };
