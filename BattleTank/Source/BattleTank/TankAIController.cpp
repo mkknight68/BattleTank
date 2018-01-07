@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankAIController.h"
+#include "Tank.h"
 
 
 
@@ -30,4 +31,14 @@ ATank * ATankAIController::GetPlayerTank() const
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
 	if (!PlayerTank) { return nullptr; }
 	return Cast<ATank>(PlayerTank);
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	if (GetPlayerTank())
+	{
+		GetAiControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+	}
 }

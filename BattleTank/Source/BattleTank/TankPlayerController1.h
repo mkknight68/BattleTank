@@ -28,7 +28,9 @@ private:
 	//tank barrel should follow  the crosshair
 	void AimTwoardsCrosshair();
 
-	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
+	bool GetSightRayHitLocation(FVector &HitLocation) const;
+
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const;
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& Lookdirection) const;
 
@@ -37,4 +39,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float CrosshairYLocation = 0.3333;
+
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000;
 };
