@@ -3,7 +3,7 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float DegressPerSecond)
+void UTankBarrel::Elevate(float DegreesPerSecond)
 {
 	//move barrel this frame
 	// given  max elevation speed, and the frame time
