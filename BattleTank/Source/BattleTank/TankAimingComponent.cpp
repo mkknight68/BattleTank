@@ -46,12 +46,21 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 	FVector OutLaucnhVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
-
+	/*
+	**the bool is refactored in the video but kept as first design to minimize code
+	**bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaucnhVelocity, StartLocation, HitLocation, LaunchSpeed, ESuggestProjVelocityTraceOption::DoNotTrace);
+	*/
 	if (UGameplayStatics::SuggestProjectileVelocity(this,OutLaucnhVelocity, StartLocation, HitLocation, LaunchSpeed, ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
 		auto AimDirection = OutLaucnhVelocity.GetSafeNormal();
 		auto TankName = GetOwner()->GetName();
-		//UE_LOG(LogTemp, Warning, TEXT("%s Firing at %s"), *TankName, *AimDirection.ToString());
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f Aim solution found"), Time);
+	}
+	else
+	{
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f Aim solution found"), Time);
 	}
 	
 }
