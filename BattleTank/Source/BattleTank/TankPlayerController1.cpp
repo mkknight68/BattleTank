@@ -7,11 +7,6 @@
 
 
 
-ATank *ATankPlayerController1::GetControlledTank() const
-{
-	return  Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController1::BeginPlay()
 {
 	Super::BeginPlay();
@@ -25,6 +20,19 @@ void ATankPlayerController1::BeginPlay()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Player controlling tank: %s"), *(ControlledTank->GetName()));
 	}
+}
+
+void ATankPlayerController1::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	AimTwoardsCrosshair();
+
+	//UE_LOG(LogTemp, Warning, TEXT("player controller tick called every frame"));
+}
+ATank *ATankPlayerController1::GetControlledTank() const
+{
+	return  Cast<ATank>(GetPawn());
 }
 
 void ATankPlayerController1::AimTwoardsCrosshair()
@@ -69,6 +77,7 @@ bool ATankPlayerController1::GetLookVectorHitLocation(FVector LookDirection, FVe
 		HitLocation = HitResult.Location;
 		return true;
 	}
+	HitLocation = FVector(0);
 	return false;
 }
 
@@ -78,12 +87,5 @@ bool ATankPlayerController1::GetLookDirection(FVector2D ScreenLocation, FVector&
 	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, Lookdirection);
 }
 
-void ATankPlayerController1::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
 
-	AimTwoardsCrosshair();
-
-	//UE_LOG(LogTemp, Warning, TEXT("player controller tick called every frame"));
-}
 

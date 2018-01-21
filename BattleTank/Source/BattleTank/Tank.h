@@ -40,8 +40,10 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	UStaticMeshComponent *Barrel = nullptr;
-	UStaticMeshComponent *Turret = nullptr;
+
+	//UStaticMeshComponent *Barrel = nullptr;
+	//UStaticMeshComponent *Turret = nullptr;
+
 
 	UPROPERTY(EditAnywhere, Category = "Firing")
 	float LaunchSpeed = 100000.0f;
