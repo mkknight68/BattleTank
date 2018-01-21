@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 #include "TankAimingComponent.h"
 
 
@@ -19,7 +20,13 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
+	if (!Barrel) { return; }
 	Barrel = BarrelToSet;
+}
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	if (!TurretToSet) { return; }
+	Turret = TurretToSet;
 }
 
 // Called when the game starts
@@ -50,17 +57,18 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	**the bool is refactored in the video but kept as first design to minimize code
 	**bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this, OutLaucnhVelocity, StartLocation, HitLocation, LaunchSpeed, ESuggestProjVelocityTraceOption::DoNotTrace);
 	*/
-	if (UGameplayStatics::SuggestProjectileVelocity(this,OutLaucnhVelocity, StartLocation, HitLocation, LaunchSpeed, ESuggestProjVelocityTraceOption::DoNotTrace))
+	if (UGameplayStatics::SuggestProjectileVelocity(this,OutLaucnhVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
 		auto AimDirection = OutLaucnhVelocity.GetSafeNormal();
 		auto TankName = GetOwner()->GetName();
 		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f Aim solution found"), Time);
+		//UE_LOG(LogTemp, Warning, TEXT("%f Aim solution found"), Time);
+		MoveBarrel(AimDirection);
 	}
 	else
 	{
 		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f Aim solution found"), Time);
+		//UE_LOG(LogTemp, Warning, TEXT("%f Aim solution  not found"), Time);
 	}
 	
 }
@@ -73,6 +81,6 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto DeltaRotator = AimAsRotator - BarrelRotation;
 	UE_LOG(LogTemp, Warning, TEXT("AimRotator: %s"), *AimAsRotator.ToString());
 	
-	Barrel->Elevate(5); //TODO move magic number
+	Barrel->Elevate(DeltaRotator.Pitch);
 }
 
