@@ -53,7 +53,7 @@ bool ATankPlayerController1::GetSightRayHitLocation(FVector &HitLocation) const
 	// find screen location
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
-	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeX * CrosshairXLocation);
+	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairXLocation, ViewportSizeY * CrosshairYLocation);
 
 	// De-project the screen position
 	FVector LookDirection;
